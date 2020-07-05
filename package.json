@@ -1,0 +1,23 @@
+{
+  "name": "visual-lang-discovery",
+  "version": "1.0.0",
+  "description": "visual-lang-discovery is a programming interface that allows you to create small  programs to understand how the software works.",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx --no-install browserify scripts/node.js -o docs/scripts/node.js -p tinyify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mariusvn/WebNode.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mariusvn/visual-lang-discovery/issues"
+  },
+  "homepage": "https://github.com/mariusvn/visual-lang-discovery#readme",
+  "devDependencies": {
+    "browserify": "^16.5.1",
+    "tinyify": "^2.5.2"
+  }
+}
