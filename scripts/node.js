@@ -95,11 +95,11 @@ class node {
     increment++;
     nodeList.push(self);
     $("#" + this.strId).on('contextmenu', function (event) {
-      if (event.which === 3) {
+      if (event.which == 3) {
         let source = event.currentTarget;
         source = $(source).attr('value');
         source = getTargetFromId(source);
-        if (source.starter === false) {
+        if (source.starter == false) {
           $(source.dom).remove();
           nodeList.splice(nodeList.indexOf(source), 1);
           jsPlumb.remove(source.strId);
@@ -208,7 +208,7 @@ class Value extends VarNode {
   getValue() {
     let val = $(this.dom).find("input");
     val = val.val();
-    if (this.outputType === "number") {
+    if (this.outputType == "number") {
       val = parseFloat(val);
     }
     return val;
@@ -247,7 +247,7 @@ class Append extends VarNode {
   }
 
   getValue() {
-    if (this.controllers[0] === null || this.controllers[1] === null || this.controllers[0] === undefined || this.controllers[1] === undefined) {
+    if (this.controllers[0] == null || this.controllers[1] == null || this.controllers[0] == undefined || this.controllers[1] == undefined) {
       let logger = new Logger();
       logger.text("Error on Append node (need connection)");
       return "";
@@ -278,9 +278,9 @@ class Append extends VarNode {
         this.controllers.push(null);
       }
     }
-    if (this.controllers.length === 0) {
+    if (this.controllers.length == 0) {
       this.controllers = [null, null];
-    } else if (this.controllers.length === 0) {
+    } else if (this.controllers.length == 0) {
       this.controllers.push(null);
     }
   }
@@ -331,22 +331,22 @@ class Operation extends VarNode {
         this.controllers.push(null);
       }
     }
-    if (this.controllers.length === 0) {
+    if (this.controllers.length == 0) {
       this.controllers = [null, null];
-    } else if (this.controllers.length === 0) {
+    } else if (this.controllers.length == 0) {
       this.controllers.push(null);
     }
   }
 
   getValue() {
-    if (this.controllers[0] === null || this.controllers[1] === null || this.controllers[0] === undefined || this.controllers[1] === undefined) {
+    if (this.controllers[0] == null || this.controllers[1] == null || this.controllers[0] == undefined || this.controllers[1] == undefined) {
       let logger = new Logger();
       logger.text("Error on Append node (need connection)");
       return "";
     }
     let val1 = this.controllers[0].getValue();
     let val2 = this.controllers[1].getValue();
-    if (((typeof val1) === 'number') && ((typeof val2) === 'number')) {
+    if (((typeof val1) == 'number') && ((typeof val2) == 'number')) {
       switch (this.operation) {
         case 'plus':
           return val1 + val2;
@@ -453,7 +453,7 @@ function onConnect(event) {
   let target = event.target;
   target = $(target).attr('value');
   target = getTargetFromId(target);
-  if (source.isVariable && (target.nodeType === "print" || target.nodeType === "variableset")) {
+  if (source.isVariable && (target.nodeType == "print" || target.nodeType == "variableset")) {
     target.control(source);
   } else if (source.isVariable && target.needInputUpdate) {
     target.updateControllers();
@@ -468,7 +468,7 @@ function onDisconnect(event) {
   let target = event.target;
   target = $(target).attr('value');
   target = getTargetFromId(target);
-  if (source.isVariable && (target.nodeType === "print" || target.nodeType === "variableset")) {
+  if (source.isVariable && (target.nodeType == "print" || target.nodeType == "variableset")) {
     target.unControl();
   } else if (source.isVariable && target.needInputUpdate) {
     target.updateControllers();
@@ -479,13 +479,11 @@ function onMoved(event) {
   let logger = new Logger();
   let oldSource = event.originalSourceId;
   oldSource = $("#" + oldSource).attr('value');
-  console.log(oldSource);
   oldSource = getTargetFromId(oldSource);
   let oldTarget = event.originalTargetId;
   oldTarget = $("#" + oldTarget).attr('value');
-  console.log(oldTarget);
   oldTarget = getTargetFromId(oldTarget);
-  if (oldSource.isVariable && (oldTarget.nodeType === "print" || oldTarget.nodeType === "variableset")) {
+  if (oldSource.isVariable && (oldTarget.nodeType == "print" || oldTarget.nodeType == "variableset")) {
     oldTarget.unControl();
 
   } else if (oldSource.isVariable && oldTarget.needInputUpdate) {
@@ -497,7 +495,7 @@ function onMoved(event) {
   let target = event.newTargetId;
   target = $(target).attr('value');
   target = getTargetFromId(target);
-  if (source.isVariable && (target.nodeType === "print" || target.nodeType === "variableset")) {
+  if (source.isVariable && (target.nodeType == "print" || target.nodeType == "variableset")) {
     target.control(source);
   } else if (source.isVariable && target.needInputUpdate) {
     target.updateControllers();
@@ -512,7 +510,7 @@ function onMoved(event) {
 function getTargetFromId(id) {
   for (let i = 0; i < nodeList.length; i++) {
     let tempNode = nodeList[i];
-    if (tempNode.id === id) {
+    if (tempNode.id == id) {
       return tempNode;
     }
   }
@@ -527,7 +525,7 @@ function getTargetFromId(id) {
 function getVarByName(name) {
   for (let i = 0; i < variables.length; i++) {
     let templet = variables[i];
-    if (tempVar.name === name) {
+    if (tempVar.name == name) {
       return tempVar;
     }
   }
@@ -542,7 +540,7 @@ function setVar(variable) {
   let modif = false;
   for (let i = 0; i < variables.length; i++) {
     let templet = variables[i];
-    if (tempVar.name === variable.name) {
+    if (tempVar.name == variable.name) {
       tempVar.value = variable.value;
       modif = true;
     }
@@ -563,7 +561,7 @@ function run() {
       scope: "flow",
       source: startNode
     });
-    if (sourceConn.length === 0) {
+    if (sourceConn.length == 0) {
       running = false;
       break;
     }
@@ -571,7 +569,6 @@ function run() {
     let target = sourceConn.target;
     let targetId = $(target).attr('value');
     let targetObj = getTargetFromId(targetId);
-
     targetObj.exec();
     startNode = targetObj.strId;
   }
