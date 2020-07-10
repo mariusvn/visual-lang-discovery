@@ -524,7 +524,7 @@ function getTargetFromId(id) {
  */
 function getVarByName(name) {
   for (let i = 0; i < variables.length; i++) {
-    let templet = variables[i];
+    let tempVar = variables[i];
     if (tempVar.name == name) {
       return tempVar;
     }
@@ -539,7 +539,7 @@ function getVarByName(name) {
 function setVar(variable) {
   let modif = false;
   for (let i = 0; i < variables.length; i++) {
-    let templet = variables[i];
+    let tempVar = variables[i];
     if (tempVar.name == variable.name) {
       tempVar.value = variable.value;
       modif = true;
